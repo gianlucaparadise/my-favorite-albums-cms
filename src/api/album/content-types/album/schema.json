@@ -1,0 +1,35 @@
+{
+  "kind": "collectionType",
+  "collectionName": "albums",
+  "info": {
+    "singularName": "album",
+    "pluralName": "albums",
+    "displayName": "Album",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string",
+      "required": true
+    },
+    "releaseYear": {
+      "type": "integer",
+      "min": 0,
+      "max": 2100
+    },
+    "durationMinutes": {
+      "type": "integer",
+      "min": 0
+    },
+    "artist": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::album-artist.album-artist",
+      "inversedBy": "albums"
+    }
+  }
+}

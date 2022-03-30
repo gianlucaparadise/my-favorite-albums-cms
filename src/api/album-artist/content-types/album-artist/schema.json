@@ -1,0 +1,25 @@
+{
+  "kind": "collectionType",
+  "collectionName": "album_artists",
+  "info": {
+    "singularName": "album-artist",
+    "pluralName": "album-artists",
+    "displayName": "Album Artist"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string",
+      "required": true
+    },
+    "albums": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::album.album",
+      "mappedBy": "artist"
+    }
+  }
+}
