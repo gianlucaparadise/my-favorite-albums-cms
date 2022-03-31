@@ -30,6 +30,16 @@
       "relation": "manyToOne",
       "target": "api::album-artist.album-artist",
       "inversedBy": "albums"
+    },
+    "cover": {
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ],
+      "type": "media",
+      "multiple": false
     }
   }
 }
