@@ -23,4 +23,8 @@ module.exports = ({ env }) => ({
       },
     },
   },
+  "vercel-deploy": {
+    enabled: true,
+    resolve: "./src/plugins/vercel-deploy",
+  },
 });
