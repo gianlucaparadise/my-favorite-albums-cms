@@ -1,3 +1,3 @@
 # Strapi plugin vercel-deploy
 
-A quick description of vercel-deploy.
+This plugin helps you trigger the deploy of a website hosted on Vercel.

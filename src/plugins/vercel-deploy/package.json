@@ -1,24 +1,27 @@
 {
   "name": "vercel-deploy",
   "version": "0.0.0",
-  "description": "This is the description of the plugin.",
+  "description": "Plugin to trigger the deploy of a website hosted on Vercel.",
   "strapi": {
-    "name": "vercel-deploy",
-    "description": "Description of vercel-deploy plugin",
+    "name": "Vercel Deploy",
+    "description": "Plugin to trigger the deploy of a website hosted on Vercel.",
     "kind": "plugin"
   },
-  "dependencies": {},
   "author": {
-    "name": "A Strapi developer"
+    "name": "Gianluca Paradiso",
+    "email": "gianlucaparadise@gmail.com"
   },
   "maintainers": [
     {
-      "name": "A Strapi developer"
+      "name": "Gianluca Paradiso"
     }
   ],
   "engines": {
     "node": ">=12.x.x <=16.x.x",
     "npm": ">=6.0.0"
   },
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "axios": "^0.26.1"
+  }
 }

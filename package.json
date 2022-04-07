@@ -5,6 +5,7 @@
   "description": "A Strapi application",
   "scripts": {
     "develop": "strapi develop",
+    "develop-plugin": "strapi develop --watch-admin",
     "start": "strapi start",
     "build": "strapi build",
     "strapi": "strapi"
@@ -20,6 +21,9 @@
     "sqlite3": "5.0.2",
     "strapi-plugin-transformer": "^2.0.0"
   },
+  "workspaces": [
+    "src/plugins/*"
+  ],
   "author": {
     "name": "A Strapi developer"
   },
