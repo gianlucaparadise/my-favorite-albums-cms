@@ -1,8 +1,8 @@
 module.exports = [
   {
     method: "GET",
-    path: "/content-types",
-    handler: "deploy.findContentTypes",
+    path: "/run-deploy",
+    handler: "deploy.runDeploy",
     config: {
       policies: [],
     },

@@ -4,41 +4,32 @@
  *
  */
 
-import React, { memo, useState, useEffect } from "react";
+import React, { memo } from "react";
 
-import { LoadingIndicatorPage } from "@strapi/helper-plugin";
 import { Box } from "@strapi/design-system/Box";
 import { BaseHeaderLayout } from "@strapi/design-system/Layout";
+import { Button } from "@strapi/design-system/Button";
 
-import { fetchContentTypes } from "../../utils/api";
-import ContentTypesTable from "../../components/ContentTypesTable";
+import { runDeploy } from "../../utils/api";
 
 const HomePage = () => {
-  const [contentTypes, setContentTypes] = useState({});
-  const [isLoading, setIsLoading] = useState(true);
-
-  useEffect(async () => {
-    const myContentTypes = await fetchContentTypes();
-
-    setContentTypes(myContentTypes);
-    setIsLoading(false);
-  }, [setContentTypes, setIsLoading]);
-
-  if (isLoading) {
-    return <LoadingIndicatorPage />;
-  }
+  const runDeployHandler = async () => {
+    const response = await runDeploy();
+    console.log("deploy response", response);
+  };
 
   return (
     <>
       <Box background="neutral100">
         <BaseHeaderLayout
-          title="SEO"
-          subtitle="Optimize your content to be SEO friendly"
+          title="Vercel Deploy"
+          subtitle="Deploy your website hosted on Vercel"
           as="h2"
         />
       </Box>
-
-      <ContentTypesTable contentTypes={contentTypes} />
+      <Box padding={8}>
+        <Button onClick={runDeployHandler}>Deploy</Button>
+      </Box>
     </>
   );
 };

@@ -1,28 +1,25 @@
 "use strict";
 
+const axios = require("axios").default;
+
 module.exports = ({ strapi }) => ({
-  getContentTypes() {
-    const contentTypes = strapi.contentTypes;
-    const keys = Object.keys(contentTypes);
-    let collectionTypes = [];
-    let singleTypes = [];
+  async runDeploy() {
+    try {
+      const response = await axios.post(
+        "https://api.vercel.com/v1/integrations/deploy/deploy-url-to-be-saved-in-env-variable" // TODO move url to config
+      );
 
-    keys.forEach((name) => {
-      if (name.includes("api::")) {
-        const object = {
-          uid: contentTypes[name].uid,
-          kind: contentTypes[name].kind,
-          globalId: contentTypes[name].globalId,
-          attributes: contentTypes[name].attributes,
-        };
-        if (contentTypes[name].kind === "collectionType") {
-          collectionTypes.push(object);
-        } else {
-          singleTypes.push(object);
-        }
+      const deployId = response?.data?.job?.id;
+      if (!deployId) {
+        throw new Error(
+          `Deployment Id not received. Response: ${JSON.stringify(response)}`
+        );
       }
-    });
 
-    return { collectionTypes, singleTypes } || null;
+      return deployId;
+    } catch (error) {
+      console.error("vercel-deploy: Error while deploying", error);
+      return {};
+    }
   },
 });
