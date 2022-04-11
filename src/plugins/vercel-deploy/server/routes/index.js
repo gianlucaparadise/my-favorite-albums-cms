@@ -7,4 +7,12 @@ module.exports = [
       policies: [],
     },
   },
+  {
+    method: "GET",
+    path: "/config",
+    handler: "config.getConfig",
+    config: {
+      policies: [],
+    },
+  },
 ];
