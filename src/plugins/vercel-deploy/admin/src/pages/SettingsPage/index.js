@@ -16,9 +16,15 @@ import { LoadingIndicatorPage } from "@strapi/helper-plugin";
 
 import { getConfig } from "../../utils/api";
 
+/**
+ * @typedef {import('../../../../types/typedefs').PluginConfigMap} PluginConfigMap
+ */
 
 const SettingsPage = () => {
   const [isLoading, setIsLoading] = useState(true);
+
+  /** @type {PluginConfigMap} */
+  const initialConfig = {};
   const [pluginConfig, setPluginConfig] = useState(initialConfig);
 
   useEffect(() => {

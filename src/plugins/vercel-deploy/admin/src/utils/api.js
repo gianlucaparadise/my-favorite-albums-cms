@@ -1,6 +1,10 @@
 import axios from "./axiosInstance";
 import pluginId from "../pluginId";
 
+/**
+ * @typedef {import('../../../types/typedefs').PluginConfig} PluginConfig
+ */
+
 export const runDeploy = async () => {
   try {
     const data = await axios(`/${pluginId}/run-deploy`, { method: "GET" });
@@ -11,6 +15,10 @@ export const runDeploy = async () => {
   }
 };
 
+/**
+ * Fetch and return plugin config
+ * @returns {Promise<PluginConfig>}
+ */
 export const getConfig = async () => {
   try {
     const response = await axios(`/${pluginId}/config`, { method: "GET" });
