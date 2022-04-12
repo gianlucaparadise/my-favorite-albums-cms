@@ -15,4 +15,12 @@ module.exports = [
       policies: [],
     },
   },
+  {
+    method: "GET",
+    path: "/deploy/availability",
+    handler: "deploy.deployAvailability",
+    config: {
+      policies: [],
+    },
+  },
 ];

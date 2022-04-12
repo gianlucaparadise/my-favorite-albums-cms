@@ -2,6 +2,7 @@
 
 /**
  * @typedef {import('../../types/typedefs').PluginConfigMap} PluginConfigMap
+ * @typedef {import('../../types/typedefs').RunDeployFeatureAvailability} RunDeployFeatureAvailability
  */
 
 /**
@@ -14,6 +15,24 @@ const buildConfig = () => {
   };
 };
 
+/**
+ * Return the availability for the runDeploy feature
+ * @param {PluginConfigMap} config Configuration file
+ * @returns {RunDeployFeatureAvailability}
+ */
+const getRunDeployAvailability = (config) => {
+  if (!config) {
+    return "MISSING_CONFIG_OBJECT";
+  }
+
+  if (!config.deployHook) {
+    return "MISSING_CONFIG_VARIABLE";
+  }
+
+  return "AVAILABLE";
+};
+
 module.exports = {
   buildConfig,
+  getRunDeployAvailability,
 };

@@ -1,7 +1,11 @@
 "use strict";
 
 const axios = require("axios").default;
-const { buildConfig } = require("./utils");
+const { buildConfig, getRunDeployAvailability } = require("./utils");
+
+/**
+ * @typedef {import('../../types/typedefs').DeployAvailabilityResponse} DeployAvailabilityResponse
+ */
 
 module.exports = ({ strapi }) => ({
   async runDeploy() {
@@ -23,6 +27,29 @@ module.exports = ({ strapi }) => ({
       return deployId;
     } catch (error) {
       console.error("[vercel-deploy] Error while deploying -", error);
+      return {};
+    }
+  },
+
+  /**
+   * Build the availability for each feature
+   * @returns {DeployAvailabilityResponse}
+   */
+  deployAvailability() {
+    try {
+      const config = buildConfig();
+      const runDeployAvailability = getRunDeployAvailability(config);
+
+      return {
+        data: {
+          runDeploy: runDeployAvailability,
+        },
+      };
+    } catch (error) {
+      console.error(
+        "[vercel-deploy] Error while building deploy availability -",
+        error
+      );
       return {};
     }
   },
