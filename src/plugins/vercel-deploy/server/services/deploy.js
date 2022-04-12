@@ -1,13 +1,17 @@
 "use strict";
 
 const axios = require("axios").default;
+const { buildConfig } = require("./utils");
 
 module.exports = ({ strapi }) => ({
   async runDeploy() {
     try {
-      const response = await axios.post(
-        "https://api.vercel.com/v1/integrations/deploy/deploy-url-to-be-saved-in-env-variable" // TODO move url to config
-      );
+      const config = buildConfig();
+      if (!config || !config.deployHook) {
+        throw "missing configuration: deployHook";
+      }
+
+      const response = await axios.post(config.deployHook);
 
       const deployId = response?.data?.job?.id;
       if (!deployId) {
@@ -18,7 +22,7 @@ module.exports = ({ strapi }) => ({
 
       return deployId;
     } catch (error) {
-      console.error("vercel-deploy: Error while deploying", error);
+      console.error("[vercel-deploy] Error while deploying -", error);
       return {};
     }
   },

@@ -1,5 +1,7 @@
 "use strict";
 
+const { buildConfig } = require("./utils");
+
 /**
  * @typedef {import('../../types/typedefs').PluginConfig} PluginConfig
  */
@@ -11,9 +13,7 @@ module.exports = ({ strapi }) => ({
    */
   getConfig() {
     return {
-      data: {
-        deployHook: process.env.VERCEL_DEPLOY_PLUGIN_HOOK,
-      },
+      data: buildConfig(),
     };
   },
 });
