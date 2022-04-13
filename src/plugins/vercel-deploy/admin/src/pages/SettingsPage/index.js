@@ -64,7 +64,7 @@ const SettingsPage = () => {
             <FieldLabel required>Deploy Hook</FieldLabel>
             <FieldInput
               type="text"
-              placeholder="Type here your deploy hook"
+              placeholder="You need to set the VERCEL_DEPLOY_PLUGIN_HOOK environment variable"
               value={getDeployHook()}
               disabled={true}
             />
