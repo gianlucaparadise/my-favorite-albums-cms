@@ -10,7 +10,9 @@ import { Box } from "@strapi/design-system/Box";
 import { BaseHeaderLayout } from "@strapi/design-system/Layout";
 import { Button } from "@strapi/design-system/Button";
 import { LoadingIndicatorPage } from "@strapi/helper-plugin";
+import { Flex } from "@strapi/design-system/Flex";
 
+import DeployErrorMessage from "../../components/DeployErrorMessage";
 import { deployAvailability, runDeploy } from "../../utils/api";
 
 /**
@@ -40,7 +42,7 @@ const HomePage = () => {
       });
   }, [setIsLoadingAvailability, setAvailability]);
 
-  const getCanDeploy = () => availability?.runDeploy == "AVAILABLE";
+  const canDeploy = availability?.runDeploy == "AVAILABLE";
 
   const runDeployHandler = async () => {
     const response = await runDeploy();
@@ -61,9 +63,22 @@ const HomePage = () => {
         />
       </Box>
       <Box padding={8}>
-        <Button onClick={runDeployHandler} disabled={!getCanDeploy()}>
-          Deploy
-        </Button>
+        <Flex>
+          <Box padding={4}>
+            <Button onClick={runDeployHandler} disabled={!canDeploy}>
+              Deploy
+            </Button>
+          </Box>
+          {canDeploy ? (
+            <></>
+          ) : (
+            <Box padding={4}>
+              <DeployErrorMessage
+                deployAvailability={availability?.runDeploy}
+              />
+            </Box>
+          )}
+        </Flex>
       </Box>
     </>
   );
