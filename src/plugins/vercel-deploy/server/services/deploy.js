@@ -5,6 +5,7 @@ const { buildConfig, getRunDeployAvailability } = require("./utils");
 
 /**
  * @typedef {import('../../types/typedefs').DeployAvailabilityResponse} DeployAvailabilityResponse
+ * @typedef {import('../../types/typedefs').GetDeploymentsResponse} GetDeploymentsResponse
  */
 
 module.exports = ({ strapi }) => ({
@@ -27,6 +28,35 @@ module.exports = ({ strapi }) => ({
       return deployId;
     } catch (error) {
       console.error("[vercel-deploy] Error while deploying -", error);
+      // TODO: error handling
+      return {};
+    }
+  },
+
+  /**
+   * Fetch the list of deployments from Vercel
+   * @returns {GetDeploymentsResponse}
+   */
+  async getDeployments() {
+    try {
+      const config = buildConfig();
+      if (!config || !config.apiToken) {
+        throw "missing configuration: deployHook";
+      }
+
+      const response = await axios.get(
+        "https://api.vercel.com/v6/deployments",
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${config.apiToken}`,
+          },
+        }
+      );
+      return response.data;
+    } catch (error) {
+      console.error("vercel-deploy: Error while fetching deployments", error);
+      // TODO: error handling
       return {};
     }
   },
@@ -50,6 +80,7 @@ module.exports = ({ strapi }) => ({
         "[vercel-deploy] Error while building deploy availability -",
         error
       );
+      // TODO: error handling
       return {};
     }
   },

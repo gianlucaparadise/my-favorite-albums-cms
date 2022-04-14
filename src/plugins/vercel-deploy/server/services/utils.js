@@ -12,8 +12,11 @@
 const buildConfig = () => {
   return {
     deployHook: process.env.VERCEL_DEPLOY_PLUGIN_HOOK,
+    apiToken: process.env.VERCEL_DEPLOY_PLUGIN_API_TOKEN,
   };
 };
+
+// TODO handle generically feature availability
 
 /**
  * Return the availability for the runDeploy feature
