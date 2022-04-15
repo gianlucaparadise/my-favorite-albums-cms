@@ -13,6 +13,7 @@ import { LoadingIndicatorPage } from "@strapi/helper-plugin";
 import { Flex } from "@strapi/design-system/Flex";
 
 import DeployErrorMessage from "../../components/DeployErrorMessage";
+import DeploymentsContainer from "../../components/DeploymentsContainer";
 import { deployAvailability, runDeploy } from "../../utils/api";
 
 /**
@@ -29,7 +30,6 @@ const HomePage = () => {
   useEffect(() => {
     deployAvailability()
       .then((response) => {
-        setIsLoadingAvailability(false);
         setAvailability(response.data);
       })
       .catch((error) => {
@@ -37,8 +37,10 @@ const HomePage = () => {
           "[vercel-deploy] error while retrieving availability",
           error
         );
-        setIsLoading(false);
         setAvailability({});
+      })
+      .finally(() => {
+        setIsLoadingAvailability(false);
       });
   }, [setIsLoadingAvailability, setAvailability]);
 
@@ -79,6 +81,9 @@ const HomePage = () => {
             </Box>
           )}
         </Flex>
+      </Box>
+      <Box padding={8}>
+        <DeploymentsContainer />
       </Box>
     </>
   );

@@ -3,6 +3,7 @@ import pluginId from "../pluginId";
 
 /**
  * @typedef {import('../../../types/typedefs').PluginConfig} PluginConfig
+ * @typedef {import('../../../types/typedefs').GetDeploymentsResponse} GetDeploymentsResponse
  * @typedef {import('../../../types/typedefs').DeployAvailabilityResponse} DeployAvailabilityResponse
  */
 
@@ -26,6 +27,23 @@ export const getConfig = async () => {
     return response.data;
   } catch (error) {
     console.error("vercel-deploy: Error while fetching configs", error);
+    return null;
+  }
+};
+
+/**
+ * Fetch and return Deployments info
+ * @returns {Promise<GetDeploymentsResponse>}
+ */
+export const getDeployments = async () => {
+  try {
+    const response = await axios(`/${pluginId}/deploy/list`, { method: "GET" });
+    return response.data;
+  } catch (error) {
+    console.error(
+      "vercel-deploy: Error while fetching deployments list",
+      error
+    );
     return null;
   }
 };
