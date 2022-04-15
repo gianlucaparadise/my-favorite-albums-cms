@@ -11,8 +11,6 @@ import { NotFound } from "@strapi/helper-plugin";
 import pluginId from "../../pluginId";
 import SettingsPage from "../SettingsPage";
 
-// TODO add API token
-
 const SettingsApp = () => {
   return (
     <div>

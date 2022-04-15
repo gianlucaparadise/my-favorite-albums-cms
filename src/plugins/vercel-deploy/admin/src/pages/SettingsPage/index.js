@@ -20,6 +20,21 @@ import { getConfig } from "../../utils/api";
  * @typedef {import('../../../../types/typedefs').PluginConfigMap} PluginConfigMap
  */
 
+const BoxField = ({ fieldName, children }) => {
+  const horizontalPadding = 6;
+  const verticalPadding = 2;
+  return (
+    <Box
+      paddingLeft={horizontalPadding}
+      paddingRight={horizontalPadding}
+      paddingTop={verticalPadding}
+      paddingBottom={verticalPadding}
+    >
+      <Field name={fieldName}>{children}</Field>
+    </Box>
+  );
+};
+
 const SettingsPage = () => {
   const [isLoading, setIsLoading] = useState(true);
 
@@ -30,20 +45,22 @@ const SettingsPage = () => {
   useEffect(() => {
     getConfig()
       .then((response) => {
-        setIsLoading(false);
         setPluginConfig(response.data);
       })
       .catch((error) => {
         console.error(
-          "vercel-deploy: error in settings page while retrieving plugin config",
+          "[vercel-deploy] error while retrieving plugin config",
           error
         );
-        setIsLoading(false);
         setPluginConfig({});
+      })
+      .finally(() => {
+        setIsLoading(false);
       });
   }, [setIsLoading, setPluginConfig]);
 
-  const getDeployHook = () => pluginConfig.deployHook || "";
+  const getDeployHook = pluginConfig.deployHook || "";
+  const getApiToken = pluginConfig.apiToken || "";
 
   if (isLoading) {
     return <LoadingIndicatorPage />;
@@ -58,25 +75,42 @@ const SettingsPage = () => {
           as="h2"
         />
       </Box>
-      <Box padding={8}>
-        <Field name="vercel-deploy-hook">
-          <Stack spacing={1}>
-            <FieldLabel required>Deploy Hook</FieldLabel>
-            <FieldInput
-              type="text"
-              placeholder="You need to set the VERCEL_DEPLOY_PLUGIN_HOOK environment variable"
-              value={getDeployHook()}
-              disabled={true}
-            />
-            <Box>
-              <Typography variant="pi">Learn more about </Typography>
-              <Link isExternal href="https://vercel.com/docs/git/deploy-hooks">
-                Vercel Deploy Hooks
-              </Link>
-            </Box>
-          </Stack>
-        </Field>
-      </Box>
+      <BoxField fieldName="vercel-deploy-hook">
+        <Stack>
+          <FieldLabel required>Deploy Hook</FieldLabel>
+          <FieldInput
+            type="text"
+            placeholder="You need to set the VERCEL_DEPLOY_PLUGIN_HOOK environment variable"
+            value={getDeployHook}
+            disabled={true}
+          />
+          <Box>
+            <Typography variant="pi">Learn more about </Typography>
+            <Link isExternal href="https://vercel.com/docs/git/deploy-hooks">
+              Vercel Deploy Hooks
+            </Link>
+          </Box>
+        </Stack>
+      </BoxField>
+      <BoxField fieldName="vercel-deploy-api-token">
+        <Stack>
+          <FieldLabel required>API token</FieldLabel>
+          <FieldInput
+            type="text"
+            placeholder="You need to set the VERCEL_DEPLOY_PLUGIN_API_TOKEN environment variable"
+            value={getApiToken}
+            disabled={true}
+          />
+          <Box>
+            <Typography variant="pi">
+              Access tokens can be created and managed inside your{" "}
+            </Typography>
+            <Link isExternal href="https://vercel.com/account/tokens">
+              account settings
+            </Link>
+          </Box>
+        </Stack>
+      </BoxField>
     </>
   );
 };
