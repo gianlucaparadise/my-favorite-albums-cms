@@ -47,7 +47,7 @@ const DeploymentsContainer = () => {
   if (isLoadingDeployments) {
     return (
       <Flex>
-        <Loader justifyContent="center">Loading content...</Loader>
+        <Loader>Loading content...</Loader>
       </Flex>
     );
   }

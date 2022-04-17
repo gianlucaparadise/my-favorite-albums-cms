@@ -1,11 +1,11 @@
 /**
- * @typedef {import('../../../../types/typedefs').RunDeployFeatureAvailability} RunDeployFeatureAvailability
+ * @typedef {import('../../../../types/typedefs').FeatureAvailability} FeatureAvailability
  */
 
 /**
  * DeployErrorMessage Props
  * @typedef {Object} Props
- * @property {RunDeployFeatureAvailability} deployAvailability Run Deploy feature availability
+ * @property {FeatureAvailability} deployAvailability Run Deploy feature availability
  */
 
 exports.unused = {};

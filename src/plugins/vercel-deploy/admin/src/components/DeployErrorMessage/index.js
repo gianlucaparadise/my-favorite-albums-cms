@@ -9,11 +9,11 @@ import { Typography } from "@strapi/design-system/Typography";
 
 /**
  * @typedef {import('./typedefs').Props} Props
- * @typedef {import("./typedefs").RunDeployFeatureAvailability} RunDeployFeatureAvailability
+ * @typedef {import("./typedefs").FeatureAvailability} FeatureAvailability
  */
 
 /**
- * @param {RunDeployFeatureAvailability} deployAvailability
+ * @param {FeatureAvailability} deployAvailability
  * @returns {string} Error message
  */
 const getMessage = (deployAvailability) => {

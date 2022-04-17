@@ -2,7 +2,7 @@
 
 /**
  * @typedef {import('../../types/typedefs').PluginConfigMap} PluginConfigMap
- * @typedef {import('../../types/typedefs').RunDeployFeatureAvailability} RunDeployFeatureAvailability
+ * @typedef {import('../../types/typedefs').FeatureAvailability} FeatureAvailability
  */
 
 /**
@@ -16,19 +16,18 @@ const buildConfig = () => {
   };
 };
 
-// TODO handle generically feature availability
-
 /**
- * Return the availability for the runDeploy feature
- * @param {PluginConfigMap} config Configuration file
- * @returns {RunDeployFeatureAvailability}
+ * Return the availability for the input feature
+ * @param {PluginConfigMap} configObj Configuration file
+ * @param {keyof PluginConfigMap} configName Name of the config prop, it is a key of the object {@link PluginConfigMap}
+ * @returns {FeatureAvailability}
  */
-const getRunDeployAvailability = (config) => {
-  if (!config) {
+const getFeatureAvailability = (configObj, configName) => {
+  if (!configObj) {
     return "MISSING_CONFIG_OBJECT";
   }
 
-  if (!config.deployHook) {
+  if (!configObj[configName]) {
     return "MISSING_CONFIG_VARIABLE";
   }
 
@@ -37,5 +36,5 @@ const getRunDeployAvailability = (config) => {
 
 module.exports = {
   buildConfig,
-  getRunDeployAvailability,
+  getFeatureAvailability,
 };

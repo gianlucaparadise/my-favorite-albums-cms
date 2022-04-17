@@ -16,8 +16,8 @@
  */
 
 /**
- * Describe the availability of the run deploy feature
- * @typedef {("AVAILABLE"|"MISSING_CONFIG_OBJECT"|"MISSING_CONFIG_VARIABLE")} RunDeployFeatureAvailability
+ * Describe the availability of a feature
+ * @typedef {("AVAILABLE"|"MISSING_CONFIG_OBJECT"|"MISSING_CONFIG_VARIABLE")} FeatureAvailability
  */
 
 /**
@@ -27,7 +27,8 @@
 
 /**
  * @typedef {Object} DeployAvailability
- * @property {RunDeployFeatureAvailability} runDeploy Describe the availability of the run deploy feature
+ * @property {FeatureAvailability} runDeploy Describe the availability of the run deploy feature
+ * @property {FeatureAvailability} listDeploy Describe the availability of the deploy list feature
  */
 
 /**

@@ -1,7 +1,7 @@
 "use strict";
 
 const axios = require("axios").default;
-const { buildConfig, getRunDeployAvailability } = require("./utils");
+const { buildConfig, getFeatureAvailability } = require("./utils");
 
 /**
  * @typedef {import('../../types/typedefs').DeployAvailabilityResponse} DeployAvailabilityResponse
@@ -68,11 +68,16 @@ module.exports = ({ strapi }) => ({
   deployAvailability() {
     try {
       const config = buildConfig();
-      const runDeployAvailability = getRunDeployAvailability(config);
+      const runDeployAvailability = getFeatureAvailability(
+        config,
+        "deployHook"
+      );
+      const listDeployAvailability = getFeatureAvailability(config, "apiToken");
 
       return {
         data: {
           runDeploy: runDeployAvailability,
+          listDeploy: listDeployAvailability,
         },
       };
     } catch (error) {
