@@ -4,7 +4,7 @@
  *
  */
 
-import React, { memo, useState, useEffect } from "react";
+import React, { memo } from "react";
 
 import { Box } from "@strapi/design-system/Box";
 import { BaseHeaderLayout } from "@strapi/design-system/Layout";
@@ -14,46 +14,22 @@ import { Flex } from "@strapi/design-system/Flex";
 
 import DeployErrorMessage from "../../components/DeployErrorMessage";
 import DeploymentsContainer from "../../components/DeploymentsContainer";
-import { deployAvailability, runDeploy } from "../../utils/api";
-
-/**
- * @typedef {import('../../../../types/typedefs').DeployAvailability} DeployAvailability
- */
+import { runDeploy } from "../../utils/api";
+import { useDeployAvailability } from "../../hooks/useDeployAvailability";
 
 const HomePage = () => {
-  /** @type {DeployAvailability} */
-  const initialAvailability = {};
-  const [availability, setAvailability] = useState(initialAvailability);
+  const [isLoadingAvailability, availability] = useDeployAvailability();
 
-  const [isLoadingAvailability, setIsLoadingAvailability] = useState(true);
-
-  useEffect(() => {
-    deployAvailability()
-      .then((response) => {
-        setAvailability(response.data);
-      })
-      .catch((error) => {
-        console.error(
-          "[vercel-deploy] error while retrieving availability",
-          error
-        );
-        setAvailability({});
-      })
-      .finally(() => {
-        setIsLoadingAvailability(false);
-      });
-  }, [setIsLoadingAvailability, setAvailability]);
+  if (isLoadingAvailability) {
+    return <LoadingIndicatorPage />;
+  }
 
   const canDeploy = availability?.runDeploy == "AVAILABLE";
 
   const runDeployHandler = async () => {
     const response = await runDeploy();
-    console.log("deploy response", response);
+    console.log("[vercel-deploy] deploy response", response);
   };
-
-  if (isLoadingAvailability) {
-    return <LoadingIndicatorPage />;
-  }
 
   return (
     <>
