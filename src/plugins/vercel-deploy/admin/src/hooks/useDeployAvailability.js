@@ -6,6 +6,10 @@ import { deployAvailability } from "../utils/api";
  * @typedef {import('../../../types/typedefs').DeployAvailability} DeployAvailability
  */
 
+/**
+ * Fetch and return the availability of the deploy features
+ * @returns {[Boolean, DeployAvailability]}
+ */
 export function useDeployAvailability() {
   /** @type {DeployAvailability} */
   const initialAvailability = {};

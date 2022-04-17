@@ -4,11 +4,11 @@
  *
  */
 
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { Loader } from "@strapi/design-system/Loader";
 import { Flex } from "@strapi/design-system/Flex";
 
-import { getDeployments } from "../../utils/api";
+import { useDeployments } from "../../hooks/useDeployments";
 
 /**
  * @typedef {import('./typedefs').Deployment} Deployment
@@ -21,28 +21,7 @@ import { getDeployments } from "../../utils/api";
  * @returns {JSX.Element}
  */
 const DeploymentsContainer = () => {
-  /** @type {Deployment[]} */
-  const initialDeployments = [];
-  const [deployments, setDeployments] = useState(initialDeployments);
-
-  const [isLoadingDeployments, setIsLoadingDeployments] = useState(true);
-
-  useEffect(() => {
-    getDeployments()
-      .then((response) => {
-        setDeployments(response.deployments);
-      })
-      .catch((error) => {
-        console.error(
-          "[vercel-deploy] error while retrieving deployments",
-          error
-        );
-        setDeployments([]);
-      })
-      .finally(() => {
-        setIsLoadingDeployments(false);
-      });
-  }, [setDeployments, setIsLoadingDeployments]);
+  const [isLoadingDeployments, deployments] = useDeployments();
 
   if (isLoadingDeployments) {
     return (
