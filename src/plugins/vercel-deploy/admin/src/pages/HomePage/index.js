@@ -16,6 +16,7 @@ import DeployErrorMessage from "../../components/DeployErrorMessage";
 import DeploymentsContainer from "../../components/DeploymentsContainer";
 import { runDeploy } from "../../utils/api";
 import { useDeployAvailability } from "../../hooks/useDeployAvailability";
+import DeploymentsEmptyState from "../../components/DeploymentsEmptyState";
 
 const HomePage = () => {
   const [isLoadingAvailability, availability] = useDeployAvailability();
@@ -30,6 +31,8 @@ const HomePage = () => {
     const response = await runDeploy();
     console.log("[vercel-deploy] deploy response", response);
   };
+
+  const canListDeploy = availability?.listDeploy == "AVAILABLE";
 
   return (
     <>
@@ -59,7 +62,13 @@ const HomePage = () => {
         </Flex>
       </Box>
       <Box padding={8}>
-        <DeploymentsContainer />
+        {canListDeploy ? (
+          <DeploymentsContainer />
+        ) : (
+          <DeploymentsEmptyState
+            listDeployAvailability={availability?.listDeploy}
+          />
+        )}
       </Box>
     </>
   );
