@@ -22,10 +22,15 @@ import DeploymentsList from "../DeploymentsList";
  * @param {Props} props
  * @returns {JSX.Element}
  */
-const DeploymentsContainer = () => {
-  const [isLoadingDeployments, deployments] = useDeployments();
+const DeploymentsContainer = ({ usePolling, onDeploymentsFetched }) => {
+  const [isLoadingDeployments, deployments] = useDeployments(
+    usePolling,
+    onDeploymentsFetched
+  );
 
-  if (isLoadingDeployments) {
+  const hasEmptyDeployments = !deployments || deployments?.length <= 0;
+
+  if (isLoadingDeployments && hasEmptyDeployments) {
     return (
       <Flex justifyContent="center">
         <Loader>Loading content...</Loader>
@@ -33,7 +38,7 @@ const DeploymentsContainer = () => {
     );
   }
 
-  if (!deployments || deployments?.length <= 0) {
+  if (hasEmptyDeployments) {
     return (
       <DeploymentsEmptyState listDeployAvailability="MISSING_DEPLOYMENTS" />
     );

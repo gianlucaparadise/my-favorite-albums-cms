@@ -4,7 +4,7 @@
  *
  */
 
-import React, { memo } from "react";
+import React, { memo, useState } from "react";
 
 import { Box } from "@strapi/design-system/Box";
 import { BaseHeaderLayout } from "@strapi/design-system/Layout";
@@ -18,8 +18,19 @@ import { runDeploy } from "../../utils/api";
 import { useDeployAvailability } from "../../hooks/useDeployAvailability";
 import DeploymentsEmptyState from "../../components/DeploymentsEmptyState";
 
+/**
+ * @typedef {import('../../../../types/typedefs').DeploymentsFetched} DeploymentsFetched
+ */
+
 const HomePage = () => {
   const [isLoadingAvailability, availability] = useDeployAvailability();
+
+  const [useDeploymentsPolling, setUseDeploymentsPolling] = useState(false);
+  /** @type {DeploymentsFetched} */
+  const onDeploymentsFetched = (hasNonFinalState) => {
+    // I want to keep fetching deployments if there is a deployment in progress until it finishes
+    setUseDeploymentsPolling(hasNonFinalState);
+  };
 
   if (isLoadingAvailability) {
     return <LoadingIndicatorPage />;
@@ -30,6 +41,7 @@ const HomePage = () => {
   const runDeployHandler = async () => {
     const response = await runDeploy();
     console.log("[vercel-deploy] deploy response", response);
+    setUseDeploymentsPolling(true);
   };
 
   const canListDeploy = availability?.listDeploy == "AVAILABLE";
@@ -63,7 +75,10 @@ const HomePage = () => {
       </Box>
       <Box padding={8}>
         {canListDeploy ? (
-          <DeploymentsContainer />
+          <DeploymentsContainer
+            usePolling={useDeploymentsPolling}
+            onDeploymentsFetched={onDeploymentsFetched}
+          />
         ) : (
           <DeploymentsEmptyState
             listDeployAvailability={availability?.listDeploy}
