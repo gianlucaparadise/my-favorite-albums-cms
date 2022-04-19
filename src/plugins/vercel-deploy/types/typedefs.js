@@ -51,4 +51,11 @@
  * @typedef {"BUILDING"|"ERROR"|"INITIALIZING"|"QUEUED"|"READY"|"CANCELED"} DeploymentState
  */
 
+/**
+ * Callback to notify that the list of deployments has been fetched
+ * @callback DeploymentsFetched
+ * @param {boolean} hasNonFinalState This is true when at least one of the deployments is not in final a state
+ * @returns {void}
+ */
+
 exports.unused = {};
