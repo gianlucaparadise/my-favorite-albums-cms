@@ -5,6 +5,7 @@
  */
 
 import React from "react";
+import { Link } from "@strapi/design-system/Link";
 import { Typography } from "@strapi/design-system/Typography";
 
 /**
@@ -14,7 +15,7 @@ import { Typography } from "@strapi/design-system/Typography";
 
 /**
  * @param {FeatureAvailability} deployAvailability
- * @returns {string} Error message
+ * @returns {string|JSX.Element} Error message
  */
 const getMessage = (deployAvailability) => {
   switch (deployAvailability) {
@@ -22,7 +23,13 @@ const getMessage = (deployAvailability) => {
       return "Unexpected config error: the config object is empty";
 
     case "MISSING_CONFIG_VARIABLE":
-      return "Config error: You did not set the Vercel Deploy Hook. Go to Plugin settings for more info";
+      return (
+        <>
+          Config error: You did not set the Vercel Deploy Hook. Go to{" "}
+          <Link to="/settings/vercel-deploy">Plugin settings</Link> for more
+          info
+        </>
+      );
 
     default:
       return "Unexpected error";

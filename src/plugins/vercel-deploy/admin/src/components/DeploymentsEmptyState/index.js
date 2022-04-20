@@ -7,6 +7,7 @@
 import React, { memo } from "react";
 
 import { EmptyStateLayout } from "@strapi/design-system/EmptyStateLayout";
+import { Link } from "@strapi/design-system/Link";
 import { Icon } from "@strapi/design-system/Icon";
 import EmptyDocuments from "@strapi/icons/EmptyDocuments";
 import EmptyPermissions from "@strapi/icons/EmptyPermissions";
@@ -43,7 +44,7 @@ const getIcon = (listDeployAvailability) => {
 
 /**
  * @param {DeploymentsAvailability} listDeployAvailability
- * @returns {string}
+ * @returns {string|JSX.Element}
  */
 const getText = (listDeployAvailability) => {
   switch (listDeployAvailability) {
@@ -51,7 +52,13 @@ const getText = (listDeployAvailability) => {
       return "The config object is empty and this is unexpected";
 
     case "MISSING_CONFIG_VARIABLE":
-      return "You did not set the Vercel API Token. Go to Plugin settings for more info";
+      return (
+        <>
+          You did not set the Vercel API Token. Go to{" "}
+          <Link to="/settings/vercel-deploy">Plugin settings</Link> for more
+          info
+        </>
+      );
 
     case "MISSING_DEPLOYMENTS":
       return "There isn't any deployment in your account";
