@@ -9,7 +9,7 @@ import { getDeployments } from "../utils/api";
  * @typedef {import('../../../types/typedefs').DeploymentsFetched} DeploymentsFetched
  */
 
-const INTERVAL_DELAY = 5000;
+const INTERVAL_DELAY = 1000;
 
 /** @type {DeploymentState[]} */
 const finalStates = ["CANCELED", "ERROR", "READY"];

@@ -11,7 +11,11 @@ import { BaseHeaderLayout } from "@strapi/design-system/Layout";
 import { Button } from "@strapi/design-system/Button";
 import { LoadingIndicatorPage } from "@strapi/helper-plugin";
 import { Flex } from "@strapi/design-system/Flex";
+import { Typography } from "@strapi/design-system/Typography";
+import { Stack } from "@strapi/design-system/Stack";
+import { Loader } from "@strapi/design-system/Loader";
 
+import SymmetricBox from "../../components/SymmetricBox";
 import DeployErrorMessage from "../../components/DeployErrorMessage";
 import DeploymentsContainer from "../../components/DeploymentsContainer";
 import { runDeploy } from "../../utils/api";
@@ -55,25 +59,48 @@ const HomePage = () => {
           as="h2"
         />
       </Box>
-      <Box padding={8}>
-        <Flex>
-          <Box padding={4}>
+      <SymmetricBox paddingHorizontal={8} paddingVertical={2}>
+        <Box padding={4}>
+          <Stack>
+            <Typography variant="beta">Manual deploy</Typography>
+            <Typography variant="pi" textColor="neutral600">
+              Start a deployment on Vercel using the webhook you configured
+            </Typography>
+          </Stack>
+        </Box>
+        <Stack horizontal>
+          <SymmetricBox paddingHorizontal={4}>
             <Button onClick={runDeployHandler} disabled={!canDeploy}>
               Deploy
             </Button>
-          </Box>
+          </SymmetricBox>
           {canDeploy ? (
             <></>
           ) : (
-            <Box padding={4}>
+            <SymmetricBox paddingHorizontal={4}>
               <DeployErrorMessage
                 deployAvailability={availability?.runDeploy}
               />
-            </Box>
+            </SymmetricBox>
           )}
-        </Flex>
-      </Box>
-      <Box padding={8}>
+        </Stack>
+      </SymmetricBox>
+      <SymmetricBox paddingHorizontal={8} paddingVertical={2}>
+        <Box padding={4}>
+          <Flex alignItems="center">
+            <Stack>
+              <Typography variant="beta">Deployments</Typography>
+              <Typography variant="pi" textColor="neutral600">
+                Latest deployments on you Vercel account
+              </Typography>
+            </Stack>
+            {useDeploymentsPolling && (
+              <SymmetricBox paddingHorizontal={2} paddingVertical={0}>
+                <Loader small>Fetching deployments</Loader>
+              </SymmetricBox>
+            )}
+          </Flex>
+        </Box>
         {canListDeploy ? (
           <DeploymentsContainer
             usePolling={useDeploymentsPolling}
@@ -84,7 +111,7 @@ const HomePage = () => {
             listDeployAvailability={availability?.listDeploy}
           />
         )}
-      </Box>
+      </SymmetricBox>
     </>
   );
 };
