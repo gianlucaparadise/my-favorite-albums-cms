@@ -30,6 +30,7 @@
  * @typedef {Object} DeployAvailability
  * @property {FeatureAvailability} runDeploy Describe the availability of the run deploy feature
  * @property {FeatureAvailability} listDeploy Describe the availability of the deploy list feature
+ * @property {FeatureAvailability} filterDeployPerAppName Describe the availability of the filtering deploy list by name feature
  */
 
 /**

@@ -80,11 +80,16 @@ module.exports = ({ strapi }) => ({
         "deployHook"
       );
       const listDeployAvailability = getFeatureAvailability(config, "apiToken");
+      const filterDeployAvailability = getFeatureAvailability(
+        config,
+        "appFilter"
+      );
 
       return {
         data: {
           runDeploy: runDeployAvailability,
           listDeploy: listDeployAvailability,
+          filterDeployPerAppName: filterDeployAvailability,
         },
       };
     } catch (error) {
