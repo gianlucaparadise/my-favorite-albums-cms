@@ -59,8 +59,9 @@ const SettingsPage = () => {
       });
   }, [setIsLoading, setPluginConfig]);
 
-  const getDeployHook = pluginConfig.deployHook || "";
-  const getApiToken = pluginConfig.apiToken || "";
+  const deployHook = pluginConfig.deployHook || "";
+  const apiToken = pluginConfig.apiToken || "";
+  const appFilter = pluginConfig.appFilter || "";
 
   if (isLoading) {
     return <LoadingIndicatorPage />;
@@ -81,14 +82,16 @@ const SettingsPage = () => {
           <FieldInput
             type="text"
             placeholder="You need to set the VERCEL_DEPLOY_PLUGIN_HOOK environment variable"
-            value={getDeployHook}
+            value={deployHook}
             disabled={true}
           />
           <Box>
-            <Typography variant="pi">Learn more about </Typography>
-            <Link isExternal href="https://vercel.com/docs/git/deploy-hooks">
-              Vercel Deploy Hooks
-            </Link>
+            <Typography variant="pi">
+              {"Learn more about "}
+              <Link isExternal href="https://vercel.com/docs/git/deploy-hooks">
+                Vercel Deploy Hooks
+              </Link>
+            </Typography>
           </Box>
         </Stack>
       </BoxField>
@@ -98,16 +101,36 @@ const SettingsPage = () => {
           <FieldInput
             type="text"
             placeholder="You need to set the VERCEL_DEPLOY_PLUGIN_API_TOKEN environment variable"
-            value={getApiToken}
+            value={apiToken}
             disabled={true}
           />
           <Box>
             <Typography variant="pi">
-              Access tokens can be created and managed inside your{" "}
+              {"Access tokens can be created and managed inside your "}
+              <Link isExternal href="https://vercel.com/account/tokens">
+                account settings
+              </Link>
             </Typography>
-            <Link isExternal href="https://vercel.com/account/tokens">
-              account settings
-            </Link>
+          </Box>
+        </Stack>
+      </BoxField>
+      <BoxField fieldName="vercel-deploy-app-name">
+        <Stack>
+          <FieldLabel>App Name</FieldLabel>
+          <FieldInput
+            type="text"
+            placeholder="You need to set the VERCEL_DEPLOY_PLUGIN_APP_FILTER environment variable"
+            value={appFilter}
+            disabled={true}
+          />
+          <Box>
+            <Typography variant="pi">
+              {"Set the name of your "}
+              <Link isExternal href="https://vercel.com/dashboard">
+                Vercel App
+              </Link>
+              {" to see only the deployments you need"}
+            </Typography>
           </Box>
         </Stack>
       </BoxField>
