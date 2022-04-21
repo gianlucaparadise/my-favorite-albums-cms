@@ -13,6 +13,7 @@ const buildConfig = () => {
   return {
     deployHook: process.env.VERCEL_DEPLOY_PLUGIN_HOOK,
     apiToken: process.env.VERCEL_DEPLOY_PLUGIN_API_TOKEN,
+    appFilter: process.env.VERCEL_DEPLOY_PLUGIN_APP_FILTER,
   };
 };
 

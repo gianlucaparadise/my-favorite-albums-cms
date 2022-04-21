@@ -13,6 +13,7 @@
  * @typedef {Object} PluginConfigMap
  * @property {?string} deployHook Url of the git deploy hook exposed in Vercel. Env variable: VERCEL_DEPLOY_PLUGIN_HOOK
  * @property {?string} apiToken API token for the Vercel integration. Env variable: VERCEL_DEPLOY_PLUGIN_API_TOKEN
+ * @property {?string} appFilter Name of the app to filter Vercel deployments. Env variable: VERCEL_DEPLOY_PLUGIN_APP_FILTER
  */
 
 /**

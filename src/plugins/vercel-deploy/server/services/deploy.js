@@ -44,6 +44,12 @@ module.exports = ({ strapi }) => ({
         throw "missing configuration: deployHook";
       }
 
+      const params = config.appFilter
+        ? {
+            app: config.appFilter,
+          }
+        : undefined;
+
       const response = await axios.get(
         "https://api.vercel.com/v6/deployments",
         {
@@ -51,6 +57,7 @@ module.exports = ({ strapi }) => ({
             "Content-Type": "application/json",
             Authorization: `Bearer ${config.apiToken}`,
           },
+          params,
         }
       );
       return response.data;
