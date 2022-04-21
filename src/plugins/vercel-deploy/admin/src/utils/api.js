@@ -9,10 +9,10 @@ import pluginId from "../pluginId";
 
 export const runDeploy = async () => {
   try {
-    const data = await axios(`/${pluginId}/run-deploy`, { method: "GET" });
+    const data = await axios(`/${pluginId}/deploy/run`, { method: "GET" });
     return data.data;
   } catch (error) {
-    console.error("vercel-deploy: Error while running a deploy", error);
+    console.error("[vercel-deploy] Error while running a deploy", error);
     return null;
   }
 };
@@ -26,7 +26,7 @@ export const getConfig = async () => {
     const response = await axios(`/${pluginId}/config`, { method: "GET" });
     return response.data;
   } catch (error) {
-    console.error("vercel-deploy: Error while fetching configs", error);
+    console.error("[vercel-deploy] Error while fetching configs", error);
     return null;
   }
 };
@@ -41,7 +41,7 @@ export const getDeployments = async () => {
     return response.data;
   } catch (error) {
     console.error(
-      "vercel-deploy: Error while fetching deployments list",
+      "[vercel-deploy] Error while fetching deployments list",
       error
     );
     return null;
@@ -60,7 +60,7 @@ export const deployAvailability = async () => {
     return data.data;
   } catch (error) {
     console.error(
-      "vercel-deploy: Error while fetching deploy availability",
+      "[vercel-deploy] Error while fetching deploy availability",
       error
     );
     return null;

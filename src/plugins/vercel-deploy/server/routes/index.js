@@ -1,8 +1,7 @@
-// TODO: rename /run-deploy with /deploy/run
 module.exports = [
   {
     method: "GET",
-    path: "/run-deploy",
+    path: "/deploy/run",
     handler: "deploy.runDeploy",
     config: {
       policies: [],

@@ -62,7 +62,7 @@ module.exports = ({ strapi }) => ({
       );
       return response.data;
     } catch (error) {
-      console.error("vercel-deploy: Error while fetching deployments", error);
+      console.error("[vercel-deploy] Error while fetching deployments", error);
       // TODO: error handling
       return {};
     }
