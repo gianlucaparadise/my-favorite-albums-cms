@@ -37,13 +37,11 @@ const DeploymentsContainer = ({ usePolling, onDeploymentsFetched }) => {
   }
 
   if (hasDeploymentsError) {
-    return <DeploymentsEmptyState listDeployAvailability="ERROR_DEPLOYMENTS" />;
+    return <DeploymentsEmptyState type="ERROR_DEPLOYMENTS" />;
   }
 
   if (hasEmptyDeployments) {
-    return (
-      <DeploymentsEmptyState listDeployAvailability="MISSING_DEPLOYMENTS" />
-    );
+    return <DeploymentsEmptyState type="MISSING_DEPLOYMENTS" />;
   }
 
   return <DeploymentsList deployments={deployments} />;

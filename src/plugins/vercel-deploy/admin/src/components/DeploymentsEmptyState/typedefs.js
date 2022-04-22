@@ -4,13 +4,13 @@
 
 /**
  * Describe the availability of the list of deployments
- * @typedef {(FeatureAvailability|"MISSING_DEPLOYMENTS"|"ERROR_DEPLOYMENTS"|"ERROR_AVAILABILITY")} DeploymentsAvailability
+ * @typedef {(FeatureAvailability|"MISSING_DEPLOYMENTS"|"ERROR_DEPLOYMENTS"|"ERROR_AVAILABILITY")} EmptyStateType
  */
 
 /**
  * DeploymentsEmptyState Props
  * @typedef {Object} Props
- * @property {DeploymentsAvailability} listDeployAvailability
+ * @property {EmptyStateType} type
  */
 
 exports.unused = {};

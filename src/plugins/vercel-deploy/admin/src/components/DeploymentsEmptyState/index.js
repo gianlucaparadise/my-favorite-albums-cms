@@ -16,7 +16,7 @@ import EmotionUnhappy from "@strapi/icons/EmotionUnhappy";
 
 /**
  * @typedef {import('./typedefs').Props} Props
- * @typedef {import('./typedefs').DeploymentsAvailability} DeploymentsAvailability
+ * @typedef {import('./typedefs').EmptyStateType} DeploymentsAvailability
  */
 
 const wrapIcon = (icon) => (
@@ -82,17 +82,12 @@ const getText = (listDeployAvailability) => {
  * @param {Props} props
  * @returns {JSX.Element}
  */
-const DeploymentsEmptyState = ({ listDeployAvailability }) => {
-  if (listDeployAvailability === "AVAILABLE") {
+const DeploymentsEmptyState = ({ type }) => {
+  if (type === "AVAILABLE") {
     return <></>;
   }
 
-  return (
-    <EmptyStateLayout
-      icon={getIcon(listDeployAvailability)}
-      content={getText(listDeployAvailability)}
-    />
-  );
+  return <EmptyStateLayout icon={getIcon(type)} content={getText(type)} />;
 };
 
 export default memo(DeploymentsEmptyState);

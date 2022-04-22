@@ -109,7 +109,7 @@ const HomePage = () => {
           />
         ) : (
           <DeploymentsEmptyState
-            listDeployAvailability={
+            type={
               hasAvailabilityError
                 ? "ERROR_AVAILABILITY"
                 : availability?.listDeploy
