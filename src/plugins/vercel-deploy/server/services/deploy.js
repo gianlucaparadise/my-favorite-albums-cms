@@ -4,11 +4,16 @@ const axios = require("axios").default;
 const { buildConfig, getFeatureAvailability } = require("./utils");
 
 /**
+ * @typedef {import('../../types/typedefs').RunDeployResponse} RunDeployResponse
  * @typedef {import('../../types/typedefs').DeployAvailabilityResponse} DeployAvailabilityResponse
  * @typedef {import('../../types/typedefs').GetDeploymentsResponse} GetDeploymentsResponse
  */
 
 module.exports = ({ strapi }) => ({
+  /**
+   * Trigger a deploy
+   * @returns {RunDeployResponse}
+   */
   async runDeploy() {
     try {
       const config = buildConfig();
@@ -18,18 +23,23 @@ module.exports = ({ strapi }) => ({
 
       const response = await axios.post(config.deployHook);
 
-      const deployId = response?.data?.job?.id;
-      if (!deployId) {
+      const deployJobId = response?.data?.job?.id;
+      if (!deployJobId) {
         throw new Error(
           `Deployment Id not received. Response: ${JSON.stringify(response)}`
         );
       }
 
-      return deployId;
+      return {
+        data: {
+          deployJobId,
+        },
+      };
     } catch (error) {
       console.error("[vercel-deploy] Error while deploying -", error);
-      // TODO: error handling
-      return {};
+      return {
+        error: "An error occurred",
+      };
     }
   },
 
@@ -62,9 +72,13 @@ module.exports = ({ strapi }) => ({
       );
       return response.data;
     } catch (error) {
-      console.error("[vercel-deploy] Error while fetching deployments", error);
-      // TODO: error handling
-      return {};
+      console.error(
+        "[vercel-deploy] Error while fetching deployments -",
+        error
+      );
+      return {
+        error: "An error occurred",
+      };
     }
   },
 
@@ -97,8 +111,9 @@ module.exports = ({ strapi }) => ({
         "[vercel-deploy] Error while building deploy availability -",
         error
       );
-      // TODO: error handling
-      return {};
+      return {
+        error: "An error occurred",
+      };
     }
   },
 });

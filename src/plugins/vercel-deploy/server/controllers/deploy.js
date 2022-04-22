@@ -1,19 +1,40 @@
 "use strict";
 
 module.exports = {
-  runDeploy(ctx) {
-    ctx.body = strapi.plugin("vercel-deploy").service("deploy").runDeploy();
+  async runDeploy(ctx) {
+    const response = await strapi
+      .plugin("vercel-deploy")
+      .service("deploy")
+      .runDeploy();
+
+    if (response.error) {
+      return ctx.internalServerError(`Server error: ${response.error}`);
+    }
+
+    ctx.body = response;
   },
   async getDeployments(ctx) {
-    ctx.body = await strapi
+    const response = await strapi
       .plugin("vercel-deploy")
       .service("deploy")
       .getDeployments();
+
+    if (response.error) {
+      return ctx.internalServerError(`Server error: ${response.error}`);
+    }
+
+    ctx.body = response;
   },
   deployAvailability(ctx) {
-    ctx.body = strapi
+    const response = strapi
       .plugin("vercel-deploy")
       .service("deploy")
       .deployAvailability();
+
+    if (response.error) {
+      return ctx.internalServerError(`Server error: ${response.error}`);
+    }
+
+    ctx.body = response;
   },
 };

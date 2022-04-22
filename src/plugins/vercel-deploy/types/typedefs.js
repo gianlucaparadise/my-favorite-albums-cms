@@ -3,6 +3,11 @@
  */
 
 /**
+ * Info about an error
+ * @typedef {Object} ErrorResponseData
+ */
+
+/**
  * Plugin config
  * @typedef {Object} PluginConfig
  * @property {PluginConfigMap} data Plugin config root property
@@ -17,6 +22,19 @@
  */
 
 /**
+ * Run deploy response
+ * @typedef {Object} RunDeployResponse
+ * @property {RunDeployData} data
+ * @property {ErrorResponseData} error Object containing the error, if any
+ */
+
+/**
+ * Info about the run deploy action
+ * @typedef {Object} RunDeployData
+ * @property {string} deployJobId
+ */
+
+/**
  * Describe the availability of a feature
  * @typedef {("AVAILABLE"|"MISSING_CONFIG_OBJECT"|"MISSING_CONFIG_VARIABLE")} FeatureAvailability
  */
@@ -24,6 +42,7 @@
 /**
  * @typedef {Object} DeployAvailabilityResponse
  * @property {DeployAvailability} data Root object with the availabilities
+ * @property {ErrorResponseData} error Object containing the error, if any
  */
 
 /**
@@ -36,6 +55,7 @@
 /**
  * @typedef {Object} GetDeploymentsResponse
  * @property {Deployment[]} deployments
+ * @property {ErrorResponseData} error Object containing the error, if any
  */
 
 /**
