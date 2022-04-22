@@ -29,12 +29,13 @@ const containsNonFinalState = (deployments) => {
  * Fetch and return the list of deployments
  * @param {boolean} usePolling
  * @param {DeploymentsFetched} onDeploymentsFetched
- * @returns {[Boolean, Deployment[]]}
+ * @returns {[Boolean, Deployment[], Boolean]} [isLoading, deployments, hasError]
  */
 export function useDeployments(usePolling, onDeploymentsFetched) {
   /** @type {Deployment[]} */
   const initialDeployments = [];
   const [deployments, setDeployments] = useState(initialDeployments);
+  const [hasError, setHasError] = useState(false);
   const [isLoadingDeployments, setIsLoadingDeployments] = useState(true);
 
   /** @param {Deployment[]} deployments */
@@ -55,6 +56,7 @@ export function useDeployments(usePolling, onDeploymentsFetched) {
           "[vercel-deploy] error while retrieving deployments",
           error
         );
+        setHasError(true);
         setDeployments([]);
         triggerCallback([]);
       })
@@ -79,5 +81,5 @@ export function useDeployments(usePolling, onDeploymentsFetched) {
     fetchDeployments();
   }, delay);
 
-  return [isLoadingDeployments, deployments];
+  return [isLoadingDeployments, deployments, hasError];
 }

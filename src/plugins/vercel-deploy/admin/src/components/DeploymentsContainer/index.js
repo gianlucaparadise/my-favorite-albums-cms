@@ -23,10 +23,8 @@ import DeploymentsList from "../DeploymentsList";
  * @returns {JSX.Element}
  */
 const DeploymentsContainer = ({ usePolling, onDeploymentsFetched }) => {
-  const [isLoadingDeployments, deployments] = useDeployments(
-    usePolling,
-    onDeploymentsFetched
-  );
+  const [isLoadingDeployments, deployments, hasDeploymentsError] =
+    useDeployments(usePolling, onDeploymentsFetched);
 
   const hasEmptyDeployments = !deployments || deployments?.length <= 0;
 
@@ -36,6 +34,10 @@ const DeploymentsContainer = ({ usePolling, onDeploymentsFetched }) => {
         <Loader>Loading content...</Loader>
       </Flex>
     );
+  }
+
+  if (hasDeploymentsError) {
+    return <DeploymentsEmptyState listDeployAvailability="ERROR_DEPLOYMENTS" />;
   }
 
   if (hasEmptyDeployments) {

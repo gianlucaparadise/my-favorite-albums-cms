@@ -12,6 +12,7 @@ import { Icon } from "@strapi/design-system/Icon";
 import EmptyDocuments from "@strapi/icons/EmptyDocuments";
 import EmptyPermissions from "@strapi/icons/EmptyPermissions";
 import ExclamationMarkCircle from "@strapi/icons/ExclamationMarkCircle";
+import EmotionUnhappy from "@strapi/icons/EmotionUnhappy";
 
 /**
  * @typedef {import('./typedefs').Props} Props
@@ -36,6 +37,9 @@ const getIcon = (listDeployAvailability) => {
 
     case "MISSING_DEPLOYMENTS":
       return wrapIcon(EmptyDocuments);
+
+    case "ERROR_DEPLOYMENTS":
+      return wrapIcon(EmotionUnhappy);
 
     default:
       return <></>;
@@ -62,6 +66,9 @@ const getText = (listDeployAvailability) => {
 
     case "MISSING_DEPLOYMENTS":
       return "There isn't any deployment in your account";
+
+    case "ERROR_DEPLOYMENTS":
+      return "There was error while fetching the deployments. Please, retry.";
 
     default:
       return "";

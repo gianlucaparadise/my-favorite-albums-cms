@@ -4,7 +4,7 @@
 
 /**
  * Describe the availability of the list of deployments
- * @typedef {(FeatureAvailability|"MISSING_DEPLOYMENTS")} DeploymentsAvailability
+ * @typedef {(FeatureAvailability|"MISSING_DEPLOYMENTS"|"ERROR_DEPLOYMENTS")} DeploymentsAvailability
  */
 
 /**

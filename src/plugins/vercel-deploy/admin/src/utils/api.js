@@ -41,10 +41,10 @@ export const getDeployments = async () => {
     return response.data;
   } catch (error) {
     console.error(
-      "[vercel-deploy] Error while fetching deployments list",
+      "[vercel-deploy] Error while fetching deployments list -",
       error
     );
-    return null;
+    throw error;
   }
 };
 
