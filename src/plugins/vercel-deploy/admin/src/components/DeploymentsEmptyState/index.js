@@ -40,6 +40,7 @@ const getIcon = (listDeployAvailability) => {
 
     case "ERROR_DEPLOYMENTS":
     case "ERROR_AVAILABILITY":
+    case "ERROR_CONFIG":
     default:
       return wrapIcon(EmotionUnhappy);
   }
@@ -71,6 +72,9 @@ const getText = (listDeployAvailability) => {
 
     case "ERROR_AVAILABILITY":
       return "There was an error while fetching the features availability. Please, retry.";
+
+    case "ERROR_CONFIG":
+      return "There was an error while fetching the configurations. Please, retry.";
 
     default:
       return "There was an unexpected error";

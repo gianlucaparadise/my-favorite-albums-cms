@@ -14,6 +14,7 @@ import { Link } from "@strapi/design-system/Link";
 import { Typography } from "@strapi/design-system/Typography";
 import { LoadingIndicatorPage } from "@strapi/helper-plugin";
 
+import DeploymentsEmptyState from "../../components/DeploymentsEmptyState";
 import { getConfig } from "../../utils/api";
 
 /**
@@ -36,6 +37,7 @@ const BoxField = ({ fieldName, children }) => {
 };
 
 const SettingsPage = () => {
+  const [hasError, setHasError] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
 
   /** @type {PluginConfigMap} */
@@ -53,6 +55,7 @@ const SettingsPage = () => {
           error
         );
         setPluginConfig({});
+        setHasError(true);
       })
       .finally(() => {
         setIsLoading(false);
@@ -65,6 +68,14 @@ const SettingsPage = () => {
 
   if (isLoading) {
     return <LoadingIndicatorPage />;
+  }
+
+  if (hasError) {
+    return (
+      <Box padding={8} background="neutral100">
+        <DeploymentsEmptyState type="ERROR_CONFIG" />
+      </Box>
+    );
   }
 
   return (
