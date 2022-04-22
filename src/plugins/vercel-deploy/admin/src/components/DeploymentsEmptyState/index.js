@@ -39,10 +39,9 @@ const getIcon = (listDeployAvailability) => {
       return wrapIcon(EmptyDocuments);
 
     case "ERROR_DEPLOYMENTS":
-      return wrapIcon(EmotionUnhappy);
-
+    case "ERROR_AVAILABILITY":
     default:
-      return <></>;
+      return wrapIcon(EmotionUnhappy);
   }
 };
 
@@ -68,10 +67,13 @@ const getText = (listDeployAvailability) => {
       return "There isn't any deployment in your account";
 
     case "ERROR_DEPLOYMENTS":
-      return "There was error while fetching the deployments. Please, retry.";
+      return "There was an error while fetching the deployments. Please, retry.";
+
+    case "ERROR_AVAILABILITY":
+      return "There was an error while fetching the features availability. Please, retry.";
 
     default:
-      return "";
+      return "There was an unexpected error";
   }
 };
 

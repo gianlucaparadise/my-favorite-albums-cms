@@ -32,7 +32,7 @@ const getMessage = (deployAvailability) => {
       );
 
     default:
-      return "Unexpected error";
+      return "Unexpected availability error: please retry";
   }
 };
 

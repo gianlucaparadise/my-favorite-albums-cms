@@ -54,15 +54,15 @@ export const getDeployments = async () => {
  */
 export const deployAvailability = async () => {
   try {
-    const data = await axios(`/${pluginId}/deploy/availability`, {
+    const response = await axios(`/${pluginId}/deploy/availability`, {
       method: "GET",
     });
-    return data.data;
+    return response.data;
   } catch (error) {
     console.error(
-      "[vercel-deploy] Error while fetching deploy availability",
+      "[vercel-deploy]: Error while fetching deploy availability -",
       error
     );
-    return null;
+    throw error;
   }
 };

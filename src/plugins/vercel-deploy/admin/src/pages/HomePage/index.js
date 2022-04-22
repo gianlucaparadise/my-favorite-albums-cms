@@ -27,7 +27,8 @@ import DeploymentsEmptyState from "../../components/DeploymentsEmptyState";
  */
 
 const HomePage = () => {
-  const [isLoadingAvailability, availability] = useDeployAvailability();
+  const [isLoadingAvailability, availability, hasAvailabilityError] =
+    useDeployAvailability();
 
   const [useDeploymentsPolling, setUseDeploymentsPolling] = useState(false);
   /** @type {DeploymentsFetched} */
@@ -108,7 +109,11 @@ const HomePage = () => {
           />
         ) : (
           <DeploymentsEmptyState
-            listDeployAvailability={availability?.listDeploy}
+            listDeployAvailability={
+              hasAvailabilityError
+                ? "ERROR_AVAILABILITY"
+                : availability?.listDeploy
+            }
           />
         )}
       </SymmetricBox>

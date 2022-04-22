@@ -8,13 +8,14 @@ import { deployAvailability } from "../utils/api";
 
 /**
  * Fetch and return the availability of the deploy features
- * @returns {[Boolean, DeployAvailability]}
+ * @returns {[Boolean, DeployAvailability, Boolean]} [isLoading, availability, hasError]
  */
 export function useDeployAvailability() {
   /** @type {DeployAvailability} */
   const initialAvailability = {};
   const [availability, setAvailability] = useState(initialAvailability);
 
+  const [hasError, setHasError] = useState(false);
   const [isLoadingAvailability, setIsLoadingAvailability] = useState(true);
 
   useEffect(() => {
@@ -28,11 +29,12 @@ export function useDeployAvailability() {
           error
         );
         setAvailability({});
+        setHasError(true);
       })
       .finally(() => {
         setIsLoadingAvailability(false);
       });
   }, [setIsLoadingAvailability, setAvailability]);
 
-  return [isLoadingAvailability, availability];
+  return [isLoadingAvailability, availability, hasError];
 }
