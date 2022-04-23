@@ -12,7 +12,8 @@ import { Stack } from "@strapi/design-system/Stack";
 import { Field, FieldLabel, FieldInput } from "@strapi/design-system/Field";
 import { Link } from "@strapi/design-system/Link";
 import { Typography } from "@strapi/design-system/Typography";
-import { LoadingIndicatorPage } from "@strapi/helper-plugin";
+import { Loader } from "@strapi/design-system/Loader";
+import { Flex } from "@strapi/design-system/Flex";
 
 import DeploymentsEmptyState from "../../components/DeploymentsEmptyState";
 import { getConfig } from "../../utils/api";
@@ -36,7 +37,7 @@ const BoxField = ({ fieldName, children }) => {
   );
 };
 
-const SettingsPage = () => {
+const SettingsContainer = () => {
   const [hasError, setHasError] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
 
@@ -67,7 +68,11 @@ const SettingsPage = () => {
   const appFilter = pluginConfig.appFilter || "";
 
   if (isLoading) {
-    return <LoadingIndicatorPage />;
+    return (
+      <Flex justifyContent="center">
+        <Loader>Loading settings...</Loader>
+      </Flex>
+    );
   }
 
   if (hasError) {
@@ -80,13 +85,6 @@ const SettingsPage = () => {
 
   return (
     <>
-      <Box background="neutral100">
-        <BaseHeaderLayout
-          title="Configuration"
-          subtitle="Configure your Vercel Deploy plugin"
-          as="h2"
-        />
-      </Box>
       <BoxField fieldName="vercel-deploy-hook">
         <Stack>
           <FieldLabel required>Deploy Hook</FieldLabel>
@@ -145,6 +143,21 @@ const SettingsPage = () => {
           </Box>
         </Stack>
       </BoxField>
+    </>
+  );
+};
+
+const SettingsPage = () => {
+  return (
+    <>
+      <Box background="neutral100">
+        <BaseHeaderLayout
+          title="Configuration"
+          subtitle="Configure your Vercel Deploy plugin"
+          as="h2"
+        />
+      </Box>
+      <SettingsContainer />
     </>
   );
 };
