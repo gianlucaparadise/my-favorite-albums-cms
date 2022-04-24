@@ -10,15 +10,15 @@ import { Typography } from "@strapi/design-system/Typography";
 
 /**
  * @typedef {import('./typedefs').Props} Props
- * @typedef {import("./typedefs").FeatureAvailability} FeatureAvailability
+ * @typedef {import("./typedefs").ErrorStateType} ErrorStateType
  */
 
 /**
- * @param {FeatureAvailability} deployAvailability
+ * @param {ErrorStateType} type
  * @returns {string|JSX.Element} Error message
  */
-const getMessage = (deployAvailability) => {
-  switch (deployAvailability) {
+const getMessage = (type) => {
+  switch (type) {
     case "MISSING_CONFIG_OBJECT":
       return "Unexpected config error: the config object is empty";
 
@@ -31,8 +31,14 @@ const getMessage = (deployAvailability) => {
         </>
       );
 
-    default:
+    case "ERROR_AVAILABILITY":
       return "Unexpected availability error: please retry";
+
+    case "ERROR_DEPLOY":
+      return "Unexpected deploy error: please retry";
+
+    default:
+      return "Unexpected error";
   }
 };
 
@@ -41,14 +47,14 @@ const getMessage = (deployAvailability) => {
  * @param {Props} props
  * @returns {JSX.Element}
  */
-const DeployErrorMessage = ({ deployAvailability }) => {
-  if (deployAvailability === "AVAILABLE") {
+const DeployErrorMessage = ({ type }) => {
+  if (type === "AVAILABLE") {
     return <></>;
   }
 
   return (
     <Typography textColor="danger500" variant="pi">
-      {getMessage(deployAvailability)}
+      {getMessage(type)}
     </Typography>
   );
 };

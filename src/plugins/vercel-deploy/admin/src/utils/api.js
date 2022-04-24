@@ -3,17 +3,22 @@ import pluginId from "../pluginId";
 
 /**
  * @typedef {import('../../../types/typedefs').PluginConfig} PluginConfig
+ * @typedef {import('../../../types/typedefs').RunDeployResponse} RunDeployResponse
  * @typedef {import('../../../types/typedefs').GetDeploymentsResponse} GetDeploymentsResponse
  * @typedef {import('../../../types/typedefs').DeployAvailabilityResponse} DeployAvailabilityResponse
  */
 
+/**
+ * Start a deploy
+ * @returns {Promise<RunDeployResponse>}
+ */
 export const runDeploy = async () => {
   try {
     const data = await axios(`/${pluginId}/deploy/run`, { method: "GET" });
     return data.data;
   } catch (error) {
-    console.error("[vercel-deploy] Error while running a deploy", error);
-    return null;
+    console.error("[vercel-deploy] Error while running a deploy -", error);
+    throw error;
   }
 };
 

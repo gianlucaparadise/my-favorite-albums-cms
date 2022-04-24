@@ -3,7 +3,7 @@
  */
 
 /**
- * Describe the availability of the list of deployments
+ * Describe the type of empty state to display
  * @typedef {(FeatureAvailability|"MISSING_DEPLOYMENTS"|"ERROR_DEPLOYMENTS"|"ERROR_AVAILABILITY"|"ERROR_CONFIG")} EmptyStateType
  */
 

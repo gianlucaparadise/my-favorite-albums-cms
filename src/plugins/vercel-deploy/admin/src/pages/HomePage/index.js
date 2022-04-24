@@ -24,9 +24,29 @@ import DeploymentsEmptyState from "../../components/DeploymentsEmptyState";
 
 /**
  * @typedef {import('../../../../types/typedefs').DeploymentsFetched} DeploymentsFetched
+ * @typedef {import('../../../../types/typedefs').FeatureAvailability} FeatureAvailability
+ * @typedef {import('../../components/DeployErrorMessage/typedefs').ErrorStateType} DeployErrorStateType
  */
 
+/**
+ *
+ * @param {boolean} hasDeployError
+ * @param {boolean} hasAvailabilityError
+ * @param {FeatureAvailability} runDeployAvailability
+ * @returns {DeployErrorStateType}
+ */
+const getDeployErrorState = (
+  hasDeployError,
+  hasAvailabilityError,
+  runDeployAvailability
+) => {
+  if (hasDeployError) return "ERROR_DEPLOY";
+  if (hasAvailabilityError) return "ERROR_AVAILABILITY";
+  return runDeployAvailability;
+};
+
 const HomePage = () => {
+  const [hasDeployError, setHasDeployError] = useState(false);
   const [isLoadingAvailability, availability, hasAvailabilityError] =
     useDeployAvailability();
 
@@ -42,11 +62,21 @@ const HomePage = () => {
   }
 
   const canDeploy = availability?.runDeploy == "AVAILABLE";
+  const deployErrorState = getDeployErrorState(
+    hasDeployError,
+    hasAvailabilityError,
+    availability?.runDeploy
+  );
+  const hasDeployedSuccessfully = deployErrorState === "AVAILABLE";
 
   const runDeployHandler = async () => {
-    const response = await runDeploy();
-    console.log("[vercel-deploy] deploy response", response);
-    setUseDeploymentsPolling(true);
+    try {
+      const response = await runDeploy();
+      setUseDeploymentsPolling(true);
+    } catch (error) {
+      console.error("[vercel-deploy] Error while running deploy", error);
+      setHasDeployError(true);
+    }
   };
 
   const canListDeploy = availability?.listDeploy == "AVAILABLE";
@@ -75,13 +105,11 @@ const HomePage = () => {
               Deploy
             </Button>
           </SymmetricBox>
-          {canDeploy ? (
+          {hasDeployedSuccessfully ? (
             <></>
           ) : (
             <SymmetricBox paddingHorizontal={4}>
-              <DeployErrorMessage
-                deployAvailability={availability?.runDeploy}
-              />
+              <DeployErrorMessage type={deployErrorState} />
             </SymmetricBox>
           )}
         </Stack>
