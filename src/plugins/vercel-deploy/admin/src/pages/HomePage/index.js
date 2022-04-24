@@ -8,7 +8,6 @@ import React, { memo, useState } from "react";
 
 import { Box } from "@strapi/design-system/Box";
 import { BaseHeaderLayout } from "@strapi/design-system/Layout";
-import { Button } from "@strapi/design-system/Button";
 import { LoadingIndicatorPage } from "@strapi/helper-plugin";
 import { Flex } from "@strapi/design-system/Flex";
 import { Typography } from "@strapi/design-system/Typography";
@@ -16,37 +15,16 @@ import { Stack } from "@strapi/design-system/Stack";
 import { Loader } from "@strapi/design-system/Loader";
 
 import SymmetricBox from "../../components/SymmetricBox";
-import DeployErrorMessage from "../../components/DeployErrorMessage";
+import DeployButton from "../../components/DeployButton";
 import DeploymentsContainer from "../../components/DeploymentsContainer";
-import { runDeploy } from "../../utils/api";
 import { useDeployAvailability } from "../../hooks/useDeployAvailability";
 import DeploymentsEmptyState from "../../components/DeploymentsEmptyState";
 
 /**
  * @typedef {import('../../../../types/typedefs').DeploymentsFetched} DeploymentsFetched
- * @typedef {import('../../../../types/typedefs').FeatureAvailability} FeatureAvailability
- * @typedef {import('../../components/DeployErrorMessage/typedefs').ErrorStateType} DeployErrorStateType
  */
-
-/**
- *
- * @param {boolean} hasDeployError
- * @param {boolean} hasAvailabilityError
- * @param {FeatureAvailability} runDeployAvailability
- * @returns {DeployErrorStateType}
- */
-const getDeployErrorState = (
-  hasDeployError,
-  hasAvailabilityError,
-  runDeployAvailability
-) => {
-  if (hasDeployError) return "ERROR_DEPLOY";
-  if (hasAvailabilityError) return "ERROR_AVAILABILITY";
-  return runDeployAvailability;
-};
 
 const HomePage = () => {
-  const [hasDeployError, setHasDeployError] = useState(false);
   const [isLoadingAvailability, availability, hasAvailabilityError] =
     useDeployAvailability();
 
@@ -61,25 +39,12 @@ const HomePage = () => {
     return <LoadingIndicatorPage />;
   }
 
-  const canDeploy = availability?.runDeploy == "AVAILABLE";
-  const deployErrorState = getDeployErrorState(
-    hasDeployError,
-    hasAvailabilityError,
-    availability?.runDeploy
-  );
-  const hasDeployedSuccessfully = deployErrorState === "AVAILABLE";
-
-  const runDeployHandler = async () => {
-    try {
-      const response = await runDeploy();
-      setUseDeploymentsPolling(true);
-    } catch (error) {
-      console.error("[vercel-deploy] Error while running deploy", error);
-      setHasDeployError(true);
-    }
-  };
-
   const canListDeploy = availability?.listDeploy == "AVAILABLE";
+
+  const onDeployed = (hasError) => {
+    if (hasError) return;
+    setUseDeploymentsPolling(true);
+  };
 
   return (
     <>
@@ -100,18 +65,11 @@ const HomePage = () => {
           </Stack>
         </Box>
         <Stack horizontal>
-          <SymmetricBox paddingHorizontal={4}>
-            <Button onClick={runDeployHandler} disabled={!canDeploy}>
-              Deploy
-            </Button>
-          </SymmetricBox>
-          {hasDeployedSuccessfully ? (
-            <></>
-          ) : (
-            <SymmetricBox paddingHorizontal={4}>
-              <DeployErrorMessage type={deployErrorState} />
-            </SymmetricBox>
-          )}
+          <DeployButton
+            hasAvailabilityError={hasAvailabilityError}
+            runDeployAvailability={availability?.runDeploy}
+            onDeployed={onDeployed}
+          />
         </Stack>
       </SymmetricBox>
       <SymmetricBox paddingHorizontal={8} paddingVertical={2}>
