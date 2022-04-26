@@ -21,9 +21,6 @@
     "sqlite3": "5.0.2",
     "strapi-plugin-transformer": "^2.0.0"
   },
-  "workspaces": [
-    "src/plugins/*"
-  ],
   "author": {
     "name": "A Strapi developer"
   },
