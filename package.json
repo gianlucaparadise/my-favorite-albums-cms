@@ -19,7 +19,8 @@
     "pg": "^8.7.3",
     "pg-connection-string": "^2.5.0",
     "sqlite3": "5.0.2",
-    "strapi-plugin-transformer": "^2.0.0"
+    "strapi-plugin-transformer": "^2.0.0",
+    "strapi-plugin-vercel-deploy": "^0.9.2"
   },
   "author": {
     "name": "A Strapi developer"

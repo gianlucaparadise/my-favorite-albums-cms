@@ -9672,6 +9672,14 @@ strapi-plugin-transformer@^2.0.0:
   resolved "https://registry.yarnpkg.com/strapi-plugin-transformer/-/strapi-plugin-transformer-2.0.0.tgz#4f94a356c291dd3ede5169d6b55e594c74e6222a"
   integrity sha512-lhFbM9lJvORglegjNZLqWspiXAm4BYLwQFv/PCYiPvrOoXgZPmb7nw9A6l0aygryJIim5Y545JabG13Se+495A==
 
+strapi-plugin-vercel-deploy@^0.9.2:
+  version "0.9.2"
+  resolved "https://registry.yarnpkg.com/strapi-plugin-vercel-deploy/-/strapi-plugin-vercel-deploy-0.9.2.tgz#e46fc5948e4b89237aeb66c8e376097978b48853"
+  integrity sha512-311GEvefG0W39vc35GgXz+rqgwyBflJaPCkAs+i39G7UO1hv1UTeM4flYWtBAWLPpIN7iUS4i5LC94iwdp3u8g==
+  dependencies:
+    "@strapi/strapi" "4.1.5"
+    axios "^0.26.1"
+
 stream-browserify@^3.0.0:
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/stream-browserify/-/stream-browserify-3.0.0.tgz#22b0a2850cdf6503e73085da1fc7b7d0c2122f2f"
