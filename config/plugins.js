@@ -1,4 +1,9 @@
 module.exports = ({ env }) => ({
+  "users-permissions": {
+    config: {
+      jwtSecret: process.env.JWT_SECRET,
+    },
+  },
   transformer: {
     enabled: true,
     config: {
