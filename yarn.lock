@@ -9851,10 +9851,10 @@ strapi-plugin-transformer@^2.0.1:
   resolved "https://registry.yarnpkg.com/strapi-plugin-transformer/-/strapi-plugin-transformer-2.0.1.tgz#2d7a368e4b4ca7ca5c32678d55d7d316e83d3575"
   integrity sha512-2FCODb84vIYH4NMkNYH0ttghohl9bns9qHDGBjYmJPAbXfmU34sxJSFOKe9yAbPXsvQv6FvIYFeuKvX5r1+wMQ==
 
-strapi-plugin-vercel-deploy@^0.9.3:
-  version "0.9.3"
-  resolved "https://registry.yarnpkg.com/strapi-plugin-vercel-deploy/-/strapi-plugin-vercel-deploy-0.9.3.tgz#1393c238297a613dd482715d33fc76fb30adbd68"
-  integrity sha512-d2rLtMNIi2hMUouGq1iXEADH7AEp3/NAcWI97mM5/rNXaWxXPgnTgBsIj7IK8urVHdFRszFtDulZThDo+IZ3AQ==
+strapi-plugin-vercel-deploy@^0.9.4:
+  version "0.9.4"
+  resolved "https://registry.yarnpkg.com/strapi-plugin-vercel-deploy/-/strapi-plugin-vercel-deploy-0.9.4.tgz#4505d3703da2dc877a2392051031381a8a3fabdb"
+  integrity sha512-VCGOZ6NIAi4GLmdt+b+Y9X2NNZQy86HsGcJVfeReug/DbMpDRKESbS1sbYDirAaVhXaXnPuZMuFEjRZ0rtS54A==
   dependencies:
     "@strapi/strapi" "^4.1.9"
     axios "^0.26.1"
