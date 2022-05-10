@@ -8,7 +8,8 @@
     "develop-plugin": "strapi develop --watch-admin",
     "start": "strapi start",
     "build": "strapi build",
-    "strapi": "strapi"
+    "strapi": "strapi",
+    "deploy": "git push heroku main:main"
   },
   "devDependencies": {},
   "dependencies": {
@@ -20,7 +21,7 @@
     "pg-connection-string": "^2.5.0",
     "sqlite3": "5.0.2",
     "strapi-plugin-transformer": "^2.0.1",
-    "strapi-plugin-vercel-deploy": "^0.9.4"
+    "strapi-plugin-vercel-deploy": "^1.0.0"
   },
   "author": {
     "name": "A Strapi developer"
