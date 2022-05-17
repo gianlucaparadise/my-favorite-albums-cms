@@ -4,12 +4,17 @@
   "info": {
     "singularName": "top-menu",
     "pluralName": "top-menus",
-    "displayName": "Top Menu"
+    "displayName": "Top Menu",
+    "description": ""
   },
   "options": {
     "draftAndPublish": true
   },
-  "pluginOptions": {},
+  "pluginOptions": {
+    "i18n": {
+      "localized": true
+    }
+  },
   "attributes": {
     "menu_items": {
       "type": "relation",
